@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/QnaFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bkg"
+    android:layout_marginTop="24dp"
+    android:layout_marginBottom="?attr/actionBarSize"
+    tools:context=".ui.QnA.QnAFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/QnAHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/UserImageQnaTopBar"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="start"
+            android:src="@drawable/dummy_person_img"
+            app:civ_border_width="1dp"
+            android:layout_marginStart="4dp"
+            app:civ_border_color="@color/gray_hint_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/TextAppearance.Nexa.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/q_amp_a"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/QnaSettings"
+            app:layout_constraintStart_toEndOf="@+id/UserImageQnaTopBar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/QnaSettings"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/menu"
+            android:src="@drawable/settings"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:tint="@color/adaptive_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/dividerTopQna"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:elevation="8dp"
+        android:background="#63808080"
+        app:layout_constraintTop_toBottomOf="@+id/QnAHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabQna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/fabpost"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/plus"
+        app:backgroundTint="@color/adaptive_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewQnA"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/dividerTopQna"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_qna" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

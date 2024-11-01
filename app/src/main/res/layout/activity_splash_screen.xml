@@ -1,0 +1,58 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Background ImageView for applying blur -->
+    <ImageView
+        android:id="@+id/splash_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Main logo or text in the center -->
+    <TextView
+        android:id="@+id/splash_text"
+        style="@style/TextAppearance.Nexa.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:letterSpacing="0.1"
+        android:text="UNI VERSE"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Optional branding text at the bottom -->
+
+    <View
+        android:id="@+id/postInsideViewQna"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/gray_hint_light"
+        app:layout_constraintBottom_toTopOf="@+id/splash_branding"
+        app:layout_constraintEnd_toEndOf="@+id/splash_branding"
+        app:layout_constraintStart_toStartOf="@+id/splash_branding" />
+
+
+    <TextView
+        android:id="@+id/splash_branding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="FROM SKIBIDI TOILET"
+        android:textColor="#A0A0A0"
+        android:layout_marginBottom="16dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

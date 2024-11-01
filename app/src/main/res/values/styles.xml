@@ -1,0 +1,24 @@
+<resources>
+
+    <style name="Widget.Theme.UNIVERSE.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.Theme.UNIVERSE.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+    <style name="CustomButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rounded_button</item> <!-- Reference your drawable -->
+        <item name="android:textColor">@color/white</item> <!-- Text color -->
+        <item name="android:padding">12dp</item> <!-- Padding -->
+        <item name="android:elevation">16dp</item> <!-- Shadow elevation -->
+        <item name="android:textSize">16sp</item> <!-- Font size -->
+        <item name="android:textStyle">bold</item> <!-- Bold text -->
+        <item name="android:gravity">center</item> <!-- Centered text -->
+    </style>
+
+</resources>

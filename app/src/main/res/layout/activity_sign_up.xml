@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bkg"
+    tools:context=".ui.login.SignUpActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/adaptive_black"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:src="@drawable/back"
+            app:tint="@color/adaptive_white" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/createAccountTVDummy"
+        style="@style/TextAppearance.Nexa.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32sp"
+        android:text="Create Your \nAccount"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="@+id/materialCardView"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/baseline_person_24"
+        app:civ_border_color="#FF000000"
+        android:visibility="gone"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/createAccountTVDummy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/createAccountTVDummy"
+        app:layout_constraintTop_toTopOf="@+id/createAccountTVDummy" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="24dp"
+        android:hint="Name"
+
+        android:textColorHint="@color/gray_hint"
+        app:boxStrokeColor="@color/priamry_blue"
+        app:counterTextColor="@color/priamry_blue"
+        app:cursorColor="@color/priamry_blue"
+        app:hintTextColor="@color/priamry_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/createAccountTVDummy"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountTVDummy">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/person"
+            android:drawablePadding="12dp"
+            android:padding="18dp"
+            android:drawableTint="@color/priamry_blue"
+            android:backgroundTint="@color/edit_text_gray_bkg"
+            android:backgroundTintMode="add"
+            android:inputType="textPersonName"
+            android:textColor="@color/adaptive_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:hint="@string/password"
+        android:textColorHint="@color/gray_hint"
+        app:boxStrokeColor="@color/priamry_blue"
+        app:counterTextColor="@color/priamry_blue"
+        app:cursorColor="@color/priamry_blue"
+        app:hintTextColor="@color/priamry_blue"
+        app:layout_constraintEnd_toEndOf="@+id/emailEditText"
+        app:layout_constraintStart_toStartOf="@+id/emailEditText"
+        app:layout_constraintTop_toBottomOf="@id/emailEditText"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/priamry_blue">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/lock"
+            android:padding="18dp"
+            android:drawableTint="@color/priamry_blue"
+            android:drawablePadding="12dp"
+            android:backgroundTint="@color/edit_text_gray_bkg"
+            android:backgroundTintMode="add"
+            android:inputType="textPassword"
+            android:textColor="@color/adaptive_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/email"
+        android:textColorHint="@color/gray_hint"
+        app:boxStrokeColor="@color/priamry_blue"
+        app:counterTextColor="@color/priamry_blue"
+        app:cursorColor="@color/priamry_blue"
+        app:hintTextColor="@color/priamry_blue"
+        app:layout_constraintEnd_toEndOf="@+id/nameEditText"
+        app:layout_constraintStart_toStartOf="@+id/nameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/envelope"
+            android:drawablePadding="12dp"
+            android:padding="18dp"
+            android:drawableTint="@color/priamry_blue"
+            android:backgroundTint="@color/edit_text_gray_bkg"
+            android:backgroundTintMode="add"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/adaptive_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/sign_up_btn"
+        style="@style/CustomButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/priamry_blue"
+        app:cardCornerRadius="8dp"
+        android:elevation="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEditText"
+        app:layout_constraintStart_toStartOf="@+id/passwordEditText"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText">
+
+        <TextView
+            android:id="@+id/sign_up_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="12dp"
+            style="@style/TextAppearance.Nexa.Bold"
+            android:text="Sign Up"
+            android:textColor="@color/white" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSignUp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/sign_up_btn"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/sign_up_btn"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_btn">
+
+        <TextView
+            android:id="@+id/bottomTV"
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already Have An Account?"
+            android:textColor="@color/gray_hint" />
+
+        <TextView
+            android:id="@+id/LoginTV"
+            style="@style/TextAppearance.Nexa.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Login"
+            android:textColor="@color/priamry_blue"
+            app:layout_constraintBottom_toBottomOf="@id/bottomTV"
+            app:layout_constraintStart_toEndOf="@+id/bottomTV"
+            app:layout_constraintTop_toTopOf="@+id/bottomTV" />
+
+    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>

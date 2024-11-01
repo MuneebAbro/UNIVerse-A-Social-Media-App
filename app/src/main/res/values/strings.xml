@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">UNI VERSE</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="logo">logo</string>
+    <string name="login_with_google">Login With Google</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="dont_have_an_account_yet">Don\'t have an account yet?</string>
+    <string name="signup">SignUp</string>
+    <string name="welcome_to_student_hub">WELCOME TO STUDENT HUB</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+    <string name="messages">Messages</string>
+    <string name="by_continuing_you_agree_to_our_terms_of_service_and_privacy_policy">By continuing you agree to our Terms of Service and Privacy Policy</string>
+    <string name="post">Post</string>
+    <string name="menu">menu</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="post_image">Post Image</string>
+    <string name="dummy_date">08/09/2024</string>
+    <string name="dummy_name">Giga Nigga</string>
+    <string name="dummy_email">GigaNigga@Africa.com</string>
+    <string name="dummy_username">\@african_Nigga</string>
+    <string name="profile">Profile</string>
+    <string name="qna">QnA</string>
+    <string name="q_amp_a"><![CDATA[Q & A]]></string>
+    <string name="comment_btn">comment Btn</string>
+    <string name="dummy_count">4</string>
+    <string name="like_btn">like Btn</string>
+    <string name="fabpost">FabPost</string>
+    <string name="dummy_bkg">bkg Image</string>
+    <string name="add_a_comment">Add a comment...</string>
+    <string name="comments">Comments</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="new_password">New Password</string>
+</resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:background="@color/bkg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImageUserComment"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/dummy_person_img"
+        app:civ_border_color="@color/gray_hint_light"
+        app:civ_border_width="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/profileImageUserComment"
+        app:layout_constraintStart_toEndOf="@id/profileImageUserComment"
+        app:layout_constraintTop_toTopOf="@id/profileImageUserComment">
+
+
+        <TextView
+            android:id="@+id/NameTvComment"
+            style="@style/TextAppearance.Nexa.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/adaptive_black"
+            android:text="@string/dummy_name"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/UserNameTvComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dummy_username"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/gray_hint"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textComment"
+        style="@style/TextAppearance.Nexa.Light"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/lorem_ipsum"
+        android:textColor="@color/adaptive_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingBottom="12dp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <!-- Bottom Stroke -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/gray_hint_light"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

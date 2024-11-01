@@ -1,0 +1,8 @@
+<!-- res/color/edittext_outline_color.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Color when the box is focused -->
+    <item android:state_focused="true" android:color="@color/priamry_blue" />
+
+    <!-- Default color (when not focused) -->
+    <item android:color="@color/gray_hint" />
+</selector>

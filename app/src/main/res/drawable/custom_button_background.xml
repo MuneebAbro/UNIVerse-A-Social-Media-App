@@ -1,0 +1,8 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/black"/>
+    <!--  Button background color  -->
+    <corners android:radius="8dp"/>
+    <!--  This ensures the button is circular  -->
+
+    <!--  Size of the button  -->
+</shape>
