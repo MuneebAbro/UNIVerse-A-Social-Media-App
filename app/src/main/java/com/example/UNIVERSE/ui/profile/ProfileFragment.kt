@@ -11,10 +11,6 @@ import androidx.fragment.app.activityViewModels
 import com.example.UNIVERSE.databinding.FragmentProfileBinding
 import com.example.UNIVERSE.ui.login.SignUpActivity
 import com.example.UNIVERSE.model.SharedViewModel
-import com.example.UNIVERSE.model.User
-import com.example.UNIVERSE.utils.USER_NODE
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
@@ -31,13 +27,12 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Load cached user data
-        loadCachedUserData()
+        // Load user data from SharedPreferences
+        loadUserData()
 
-        // Clear cache on "Edit Profile" button click
+        // Clear data on "Edit Profile" button click
         binding.editProfileBtn.setOnClickListener {
-            clearCachedProfileData()
-            // Open EditProfile Activity
+
             val intent = Intent(activity, SignUpActivity::class.java)
             intent.putExtra("MODE", 1)
             activity?.startActivity(intent)
@@ -46,68 +41,22 @@ class ProfileFragment : Fragment() {
         return root
     }
 
-    private fun clearCachedProfileData() {
-        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        sharedPreferences.edit().remove("profile_image_url").remove("user_name").remove("user_email").apply()
-    }
+    private fun loadUserData() {
+        val (cachedImageUrl, cachedName, cachedEmail) = getUserData()
 
-    private fun loadCachedUserData() {
-        val (cachedImageUrl, cachedName, cachedEmail) = getProfileData()
-
-        // Load cached profile image if available
+        // Load user profile image if available
         if (!cachedImageUrl.isNullOrEmpty()) {
             Picasso.get().load(cachedImageUrl).into(binding.circleProfileImage)
         }
 
-        // Load cached user name if available
-        cachedName?.let {
-            binding.nameTvProfile.text = it
-        }
+        // Load user name if available
+        binding.nameTvProfile.text = cachedName ?: "Unknown Name"
 
-        // Load cached user email if available
-        cachedEmail?.let {
-            binding.profileEmailTV.text = it
-        }
-
-        // If no cached data, fetch from Firebase
-        if (cachedImageUrl.isNullOrEmpty() || cachedName.isNullOrEmpty() || cachedEmail.isNullOrEmpty()) {
-            fetchAndCacheUserData()
-        }
+        // Load user email if available
+        binding.profileEmailTV.text = cachedEmail ?: "Unknown Email"
     }
 
-    private fun fetchAndCacheUserData() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        FirebaseFirestore.getInstance().collection(USER_NODE)
-            .document(userId).get()
-            .addOnSuccessListener { document ->
-                val user: User? = document.toObject(User::class.java)
-                if (user != null) {
-                    // Ensure name and email are not null before using them
-                    binding.nameTvProfile.text = user.name ?: "Unknown Name"
-                    binding.profileEmailTV.text = user.email ?: "Unknown Email"
-
-                    // Cache and load image if available
-                    user.image?.let { imageUrl ->
-                        saveProfileData(imageUrl, user.name ?: "Unknown Name", user.email ?: "Unknown Email")
-                        Picasso.get().load(imageUrl).into(binding.circleProfileImage)
-                    }
-                }
-            }
-            .addOnFailureListener {
-                // Handle error (e.g., show a Toast or log the error)
-            }
-    }
-
-    private fun saveProfileData(imageUrl: String, name: String, email: String) {
-        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        sharedPreferences.edit()
-            .putString("profile_image_url", imageUrl)
-            .putString("user_name", name)
-            .putString("user_email", email)
-            .apply()
-    }
-
-    private fun getProfileData(): Triple<String?, String?, String?> {
+    private fun getUserData(): Triple<String?, String?, String?> {
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val imageUrl = sharedPreferences.getString("profile_image_url", null)
         val name = sharedPreferences.getString("user_name", null)
