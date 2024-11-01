@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:827027525697:android:185b94ee765d7b6802f6c0",
+        "mobilesdk_app_id": "1:827027525697:android:da261cc576eb87e502f6c0",
         "android_client_info": {
-          "package_name": "com.example.UNIVERSE"
+          "package_name": "com.example.fyp"
         }
       },
       "oauth_client": [],
@@ -26,9 +26,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:827027525697:android:da261cc576eb87e502f6c0",
+        "mobilesdk_app_id": "1:827027525697:android:2ac7c16471eb410e02f6c0",
         "android_client_info": {
-          "package_name": "com.example.fyp"
+          "package_name": "com.example.universe"
         }
       },
       "oauth_client": [],
