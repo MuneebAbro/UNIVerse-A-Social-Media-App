@@ -23,9 +23,9 @@
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="post_image">Post Image</string>
     <string name="dummy_date">08/09/2024</string>
-    <string name="dummy_name">Giga Nigga</string>
-    <string name="dummy_email">GigaNigga@Africa.com</string>
-    <string name="dummy_username">\@african_Nigga</string>
+    <string name="dummy_name">Student</string>
+    <string name="dummy_email">Student@university.edu.pk</string>
+    <string name="dummy_username">\@student_7736</string>
     <string name="profile">Profile</string>
     <string name="qna">QnA</string>
     <string name="q_amp_a"><![CDATA[Q & A]]></string>
@@ -34,7 +34,7 @@
     <string name="like_btn">like Btn</string>
     <string name="fabpost">FabPost</string>
     <string name="dummy_bkg">bkg Image</string>
-    <string name="add_a_comment">Add a comment...</string>
+    <string name="add_a_comment">Add a comment…</string>
     <string name="comments">Comments</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="new_password">New Password</string>

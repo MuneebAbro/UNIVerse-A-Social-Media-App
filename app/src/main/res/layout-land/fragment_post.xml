@@ -8,7 +8,7 @@
     android:background="@color/bkg"
     android:layout_marginTop="24dp"
     android:layout_marginBottom="?attr/actionBarSize"
-    tools:context=".ui.QnA.QnAFragment">
+    tools:context=".ui.post.PostFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/QnAHeader"
@@ -21,11 +21,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/UserImageQnaTopBar"
+            android:id="@+id/UserImagePostTopBar"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_gravity="start"
-            android:src="@drawable/dummy_person_img"
+            android:src="@drawable/avatar"
             app:civ_border_width="1dp"
             android:layout_marginStart="4dp"
             app:civ_border_color="@color/gray_hint_light"
@@ -40,12 +40,12 @@
             android:text="@string/q_amp_a"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/QnaSettings"
-            app:layout_constraintStart_toEndOf="@+id/UserImageQnaTopBar"
+            app:layout_constraintEnd_toStartOf="@+id/PostSettings"
+            app:layout_constraintStart_toEndOf="@+id/UserImagePostTopBar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/QnaSettings"
+            android:id="@+id/PostSettings"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:contentDescription="@string/menu"
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabQna"
+        android:id="@+id/fabPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -83,7 +83,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewQnA"
+        android:id="@+id/recyclerViewPost"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingBottom="100dp"

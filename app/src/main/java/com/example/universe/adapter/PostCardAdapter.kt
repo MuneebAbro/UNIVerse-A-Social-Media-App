@@ -37,8 +37,8 @@ class PostCardAdapter(
         // Load user profile picture using Picasso
         Picasso.get()
             .load(post.userProfilePicture)
-            .placeholder(R.drawable.dummy_person_img) // Placeholder for profile picture
-            .error(R.drawable.dummy_person_img) // Error profile picture if loading fails
+            .placeholder(R.drawable.avatar) // Placeholder for profile picture
+            .error(R.drawable.avatar) // Error profile picture if loading fails
             .into(holder.userProfilePicture)
 
         // Set user name and email

@@ -17,10 +17,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.universe" />
+                  <option name="mobileSdkAppId" value="1:827027525697:android:2ac7c16471eb410e02f6c0" />
+                  <option name="projectId" value="uni-verse-48b5f" />
+                  <option name="projectNumber" value="827027525697" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

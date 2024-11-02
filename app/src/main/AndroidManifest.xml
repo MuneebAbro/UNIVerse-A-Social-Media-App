@@ -16,11 +16,11 @@
             android:name=".ui.login.PasswordResetActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.QnA.CommentsActivity"
+            android:name=".ui.post.CommentsActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.QnA.NewPostActivity"
+            android:name=".ui.post.NewPostActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.SignUpActivity"

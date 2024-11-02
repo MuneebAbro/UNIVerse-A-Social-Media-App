@@ -44,7 +44,7 @@ class CommentsActivity : AppCompatActivity() {
 
         val dummyComments = List(10) {      // dummy data
             Comment(
-                profileImageResId = R.drawable.dummy_person_img,
+                profileImageResId = R.drawable.avatar,
                 name = "User $it",
                 username = "@user$it",
                 commentText = "This is a dummy comment #$it"
