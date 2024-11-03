@@ -10,87 +10,97 @@
         android:paddingTop="?attr/actionBarSize"
         tools:context=".ui.messages.MessageFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/HomeLogoLL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/UserImageTopBar"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_gravity="start"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/avatar"
-                app:civ_border_color="@color/gray_hint_light"
-                app:civ_border_width="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardViewSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@color/adaptive_black"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                style="@style/TextAppearance.Nexa.Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/logo"
-                android:src="@drawable/ciagou"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                app:layout_constraintEnd_toStartOf="@+id/imageView4"
-                app:layout_constraintStart_toEndOf="@+id/UserImageTopBar"
-                app:layout_constraintTop_toTopOf="@+id/imageView4"
-                app:tint="@color/adaptive_black" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="4dp"
-                android:contentDescription="@string/menu"
-                android:src="@drawable/settings"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/adaptive_black" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/dividerTopHome"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="#63808080"
-            android:elevation="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/HomeLogoLL" />
-
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="No Posts Yet!"
-            android:textColor="@color/gray_hint"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerTopHome" />
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:src="@drawable/back"
+            app:tint="@color/adaptive_white" />
+    </com.google.android.material.card.MaterialCardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:paddingBottom="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerTopHome" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/messages"
+        android:layout_margin="16dp"
+        android:textSize="24sp"
+        android:textColor="@color/adaptive_black"
+        style="@style/TextAppearance.Nexa.Bold"
+        app:layout_constraintBottom_toBottomOf="@+id/materialCardViewSearch"
+        app:layout_constraintStart_toEndOf="@+id/materialCardViewSearch"
+        app:layout_constraintTop_toTopOf="@+id/materialCardViewSearch" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginEmailEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/search"
+        android:textColorHint="@color/gray_hint"
+        app:boxStrokeColor="@color/priamry_blue"
+        app:counterTextColor="@color/priamry_blue"
+        app:cursorColor="@color/priamry_blue"
+        app:hintTextColor="@color/priamry_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/materialCardViewSearch"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardViewSearch">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/edit_text_gray_bkg"
+            android:backgroundTintMode="add"
+            android:drawableEnd="@drawable/search"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/priamry_blue"
+            android:inputType="textEmailAddress"
+            android:padding="18dp"
+            android:textColor="@color/adaptive_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/loginEmailEditText"
+        app:layout_constraintStart_toStartOf="@+id/loginEmailEditText"
+        app:layout_constraintTop_toBottomOf="@+id/loginEmailEditText" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/newMessageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/adaptive_black"
+        app:cardCornerRadius="12dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:src="@drawable/message"
+            app:tint="@color/adaptive_white" />
+    </com.google.android.material.card.MaterialCardView>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

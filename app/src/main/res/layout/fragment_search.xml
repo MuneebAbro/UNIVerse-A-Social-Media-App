@@ -11,7 +11,7 @@
         android:id="@+id/materialCardViewSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:backgroundTint="@color/adaptive_black"
         app:cardCornerRadius="24dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +42,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/search"
         android:textColorHint="@color/gray_hint"
         app:boxStrokeColor="@color/priamry_blue"
@@ -49,8 +51,7 @@
         app:cursorColor="@color/priamry_blue"
         app:hintTextColor="@color/priamry_blue"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="24dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/materialCardViewSearch"
         app:layout_constraintTop_toBottomOf="@+id/materialCardViewSearch">
 
         <com.google.android.material.textfield.TextInputEditText

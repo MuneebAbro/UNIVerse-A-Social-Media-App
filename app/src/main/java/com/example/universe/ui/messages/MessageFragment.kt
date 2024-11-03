@@ -24,7 +24,6 @@ class MessageFragment : Fragment(){
 
     private var _binding: FragmentMessageBinding? = null
     private val binding get() = _binding!!
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,36 +33,10 @@ class MessageFragment : Fragment(){
         _binding = FragmentMessageBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        loadUserData()
-
-
-
-        // Observe SharedViewModel for the image URL and set it in top bar and navigation drawer
-        sharedViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
-            if (!imageUrl.isNullOrEmpty()) {
-                Picasso.get().load(imageUrl).into(binding.UserImageTopBar)
-
-            }
-        }
-
 
         return root
     }
 
-    private fun loadUserData() {
-        val (cachedImageUrl) = getUserData()
-        if (!cachedImageUrl.isNullOrEmpty()) {
-            Picasso.get().load(cachedImageUrl).into(binding.UserImageTopBar)
-        }
-    }
-
-    private fun getUserData(): Triple<String?, String?, String?> {
-        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val imageUrl = sharedPreferences.getString("profile_image_url", null)
-        val name = sharedPreferences.getString("user_name", null)
-        val email = sharedPreferences.getString("user_email", null)
-        return Triple(imageUrl, name, email)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
