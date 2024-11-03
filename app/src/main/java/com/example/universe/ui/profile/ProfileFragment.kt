@@ -1,5 +1,6 @@
 package com.example.universe.ui.profile
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.example.universe.R
 import com.example.universe.databinding.FragmentProfileBinding
 import com.example.universe.ui.login.SignUpActivity
 import com.example.universe.model.SharedViewModel
@@ -37,6 +39,9 @@ class ProfileFragment : Fragment() {
             intent.putExtra("MODE", 1)
             activity?.startActivity(intent)
         }
+
+//        AlertDialog.Builder(requireContext(), R.layout.dialog_layout).show()
+
 
         return root
     }
