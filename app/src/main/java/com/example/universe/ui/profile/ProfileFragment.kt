@@ -13,6 +13,9 @@ import com.example.universe.R
 import com.example.universe.databinding.FragmentProfileBinding
 import com.example.universe.ui.login.SignUpActivity
 import com.example.universe.model.SharedViewModel
+import com.example.universe.ui.login.LoginActivity
+import com.example.universe.utils.DialogUtils.showLogoutDialog
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
@@ -40,11 +43,30 @@ class ProfileFragment : Fragment() {
             activity?.startActivity(intent)
         }
 
-//        AlertDialog.Builder(requireContext(), R.layout.dialog_layout).show()
+     showLogoutDialog(requireContext()){
+         logout()
+     }
+
 
 
         return root
     }
+
+    private fun logout() {
+        // Clear shared preferences
+        requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).edit().clear().apply()
+
+        // Sign out from Firebase Auth
+        FirebaseAuth.getInstance().signOut()
+
+        // Navigate to LoginActivity
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+
+
 
     private fun loadUserData() {
         val (cachedImageUrl, cachedName, cachedEmail) = getUserData()
