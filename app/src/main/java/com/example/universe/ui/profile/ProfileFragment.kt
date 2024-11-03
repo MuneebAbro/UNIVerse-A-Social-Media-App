@@ -47,8 +47,6 @@ class ProfileFragment : Fragment() {
          logout()
      }
 
-
-
         return root
     }
 

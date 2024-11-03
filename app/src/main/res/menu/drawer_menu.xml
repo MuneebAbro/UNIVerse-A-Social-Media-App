@@ -13,6 +13,11 @@
         android:title="Settings" />
 
     <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/power"
+        android:title="Logout" />
+
+    <item
         android:id="@+id/nav_empty"
         android:icon="@android:color/transparent"
         android:title="" />

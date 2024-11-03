@@ -1,6 +1,7 @@
 package com.example.universe.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -13,7 +14,10 @@ import androidx.fragment.app.activityViewModels
 import com.example.universe.R
 import com.example.universe.databinding.FragmentHomeBinding
 import com.example.universe.model.SharedViewModel
+import com.example.universe.ui.login.LoginActivity
+import com.example.universe.utils.DialogUtils.showLogoutDialog
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 
 class HomeFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
@@ -102,11 +106,31 @@ class HomeFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
                 // Example: Open profile screen or perform any other action
                 return true
             }
+            R.id.nav_logout -> {
+
+                showLogoutDialog(requireContext()){
+                    logout()
+                }
+                return true
+            }
         }
 
         // Close the drawer after an item is selected
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun logout() {
+        // Clear shared preferences
+        requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).edit().clear().apply()
+
+        // Sign out from Firebase Auth
+        FirebaseAuth.getInstance().signOut()
+
+        // Navigate to LoginActivity
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
