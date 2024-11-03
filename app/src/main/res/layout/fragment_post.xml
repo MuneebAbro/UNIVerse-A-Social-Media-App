@@ -32,16 +32,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <ImageView
             style="@style/TextAppearance.Nexa.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/post"
-            android:textSize="18sp"
+            android:src="@drawable/ciagou"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/PostSettings"
             app:layout_constraintStart_toEndOf="@+id/UserImagePostTopBar"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/adaptive_black"
+            />
 
         <ImageView
             android:id="@+id/PostSettings"

@@ -6,7 +6,7 @@
     android:id="@+id/drawerLayout"
     android:layout_height="match_parent"
 
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.messages.MessageFragment">
 
 
 

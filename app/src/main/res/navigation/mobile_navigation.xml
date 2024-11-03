@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_post">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.universe.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_post"
+        android:name="com.example.universe.ui.post.PostFragment"
+        android:label="@string/post"
+        tools:layout="@layout/fragment_post" />
+
+
 
     <fragment
         android:id="@+id/navigation_search"
@@ -18,10 +20,10 @@
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/navigation_qna"
-        android:name="com.example.universe.ui.post.PostFragment"
-        android:label="@string/qna"
-        tools:layout="@layout/fragment_post" />
+        android:id="@+id/navigation_messages"
+        android:name="com.example.universe.ui.messages.MessageFragment"
+        android:label="@string/title_messages"
+        tools:layout="@layout/fragment_message" />
 
     <fragment
         android:id="@+id/navigation_profile"

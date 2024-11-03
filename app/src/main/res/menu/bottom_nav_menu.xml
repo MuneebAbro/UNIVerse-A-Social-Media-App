@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/home"
-        android:title="@string/title_home" />
+        android:id="@+id/navigation_post"
+        android:icon="@drawable/qna"
+        android:title="@string/post" />
 
     <item
         android:id="@+id/navigation_search"
@@ -12,9 +12,11 @@
         android:title="@string/search" />
 
     <item
-        android:id="@+id/navigation_qna"
-        android:icon="@drawable/qna"
-        android:title="@string/qna" />
+        android:id="@+id/navigation_messages"
+        android:icon="@drawable/message"
+        android:title="@string/title_messages" />
+
+
 
  <item
         android:id="@+id/navigation_profile"

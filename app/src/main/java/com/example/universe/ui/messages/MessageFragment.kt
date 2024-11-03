@@ -1,4 +1,4 @@
-package com.example.universe.ui.home
+package com.example.universe.ui.messages
 
 import android.content.Context
 import android.content.Intent
@@ -12,7 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.universe.R
-import com.example.universe.databinding.FragmentHomeBinding
+import com.example.universe.databinding.FragmentMessageBinding
 import com.example.universe.model.SharedViewModel
 import com.example.universe.ui.login.LoginActivity
 import com.example.universe.utils.DialogUtils.showLogoutDialog
@@ -20,9 +20,9 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 
-class HomeFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
+class MessageFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentMessageBinding? = null
     private val binding get() = _binding!!
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -35,7 +35,7 @@ class HomeFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentMessageBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         // Setup DrawerLayout and NavigationView
