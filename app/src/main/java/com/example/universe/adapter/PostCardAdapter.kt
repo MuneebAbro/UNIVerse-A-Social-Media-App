@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.universe.R
 import com.example.universe.model.Post
 import com.github.marlonlom.utilities.timeago.TimeAgo
@@ -24,27 +25,43 @@ class PostCardAdapter(
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = posts[position]
 
-        // Load post image and caption
+        // Set caption
         holder.postCaption.text = post.caption
+
+        // Show the Lottie loader initially
+        holder.lottieLoaderPostImage.visibility = View.VISIBLE
+        holder.postImage.visibility = View.INVISIBLE
 
         // Load post image using Picasso
         Picasso.get()
             .load(post.postUrl)
-            .placeholder(R.drawable.dummy) // Placeholder for post image
-            .error(R.drawable.dummy) // Error image if loading fails
-            .into(holder.postImage)
+            .placeholder(R.drawable.placeholder_image_drawable)
+            .error(R.drawable.placeholder_image_drawable)
+            .into(holder.postImage, object : com.squareup.picasso.Callback {
+                override fun onSuccess() {
+                    // Hide the loader once the image is loaded successfully
+                    holder.lottieLoaderPostImage.visibility = View.GONE
+                    holder.postImage.visibility = View.VISIBLE
+                }
 
-        // Load user profile picture using Picasso
+                override fun onError(e: Exception?) {
+                    // Hide the loader and show the placeholder if loading fails
+                    holder.lottieLoaderPostImage.visibility = View.GONE
+                    holder.postImage.setImageResource(R.drawable.placeholder_image_drawable)
+                    holder.postImage.visibility = View.VISIBLE
+                }
+            })
+
+        // Load user profile picture
         Picasso.get()
             .load(post.userProfilePicture)
-            .placeholder(R.drawable.avatar) // Placeholder for profile picture
-            .error(R.drawable.avatar) // Error profile picture if loading fails
+            .placeholder(R.drawable.avatar)
+            .error(R.drawable.avatar)
             .into(holder.userProfilePicture)
 
-        // Set user name and email
+        // Set user name and timestamp
+        holder.userName.text = post.userName
         holder.timeStamp.text = TimeAgo.using(post.timestamp)
-
-        holder.userName.text = post.userName // Make sure this field is bound to the layout
 
         // Set click listener for each post
         holder.itemView.setOnClickListener {
@@ -59,6 +76,7 @@ class PostCardAdapter(
         val postCaption: TextView = itemView.findViewById(R.id.textQna)
         val userProfilePicture: ImageView = itemView.findViewById(R.id.profileImageUserQna)
         val timeStamp: TextView = itemView.findViewById(R.id.TimeStampTV)
-        val userName: TextView = itemView.findViewById(R.id.NameTvQna) // Reference the user name TextView
+        val userName: TextView = itemView.findViewById(R.id.NameTvQna)
+        val lottieLoaderPostImage: LottieAnimationView = itemView.findViewById(R.id.lottieLoaderPostImage) // Reference Lottie loader
     }
 }

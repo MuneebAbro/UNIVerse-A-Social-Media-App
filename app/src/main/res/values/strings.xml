@@ -39,4 +39,5 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="new_password">New Password</string>
     <string name="title_messages">Messages</string>
+    <string name="settings">Settings</string>
 </resources>

@@ -46,12 +46,36 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observeUserData() {
+        // Show loader initially
+        binding.lottieLoaderProfile?.visibility = View.VISIBLE
+        binding.circleProfileImage.visibility = View.INVISIBLE
+
         sharedViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
             if (!imageUrl.isNullOrEmpty()) {
-                Picasso.get().load(imageUrl).into(binding.circleProfileImage)
+                Picasso.get().load(imageUrl).error(R.drawable.avatar)
+                    .into(binding.circleProfileImage, object : com.squareup.picasso.Callback {
+                        override fun onSuccess() {
+                            // Hide the loader and show the image
+                            binding.lottieLoaderProfile?.visibility = View.INVISIBLE
+                            binding.circleProfileImage.visibility = View.VISIBLE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            // Hide loader and show a placeholder image if there's an error
+                            binding.lottieLoaderProfile?.visibility = View.INVISIBLE
+                            binding.circleProfileImage.setImageResource(R.drawable.avatar)
+                            binding.circleProfileImage.visibility = View.VISIBLE
+                        }
+                    })
+            } else {
+                // Hide loader and set a placeholder if imageUrl is empty
+                binding.lottieLoaderProfile?.visibility = View.INVISIBLE
+                binding.circleProfileImage.setImageResource(R.drawable.avatar)
+                binding.circleProfileImage.visibility = View.VISIBLE
             }
         }
 
+        // Observe user name and email as before
         sharedViewModel.userName.observe(viewLifecycleOwner) { name ->
             binding.nameTvProfile.text = name ?: "Unknown Name"
         }
@@ -60,6 +84,7 @@ class ProfileFragment : Fragment() {
             binding.profileEmailTV.text = email ?: "Unknown Email"
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

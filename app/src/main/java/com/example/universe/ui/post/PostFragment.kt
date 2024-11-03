@@ -14,12 +14,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.universe.R
 import com.example.universe.adapter.PostCardAdapter
 import com.example.universe.databinding.FragmentPostBinding
 import com.example.universe.model.Post
 import com.example.universe.model.SharedViewModel
 import com.example.universe.ui.login.LoginActivity
+import com.example.universe.ui.settings.SettingsActivity
 import com.example.universe.utils.DialogUtils.showLogoutDialog
 import com.example.universe.utils.POSTS_NODE
 import com.google.android.material.navigation.NavigationView
@@ -37,6 +39,7 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
     private lateinit var navHeaderImage: de.hdodenhof.circleimageview.CircleImageView
     private lateinit var navHeaderUsername: com.google.android.material.textview.MaterialTextView
     private lateinit var navHeaderEmail: com.google.android.material.textview.MaterialTextView
+    private lateinit var navImageLoader: LottieAnimationView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +56,7 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
         navHeaderImage = headerView.findViewById(R.id.nav_header_image)
         navHeaderUsername = headerView.findViewById(R.id.nav_header_username)
         navHeaderEmail = headerView.findViewById(R.id.nav_header_email)
+        navImageLoader = headerView.findViewById(R.id.navImageLoader)
         loadUserData()
         // Set the listener for navigation item clicks
         navigationView.setNavigationItemSelectedListener(this)
@@ -97,6 +101,13 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
                 }
                 return true
             }
+
+            R.id.nav_settings -> {
+
+                val intent = Intent(requireContext(), SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
         }
 
         // Close the drawer after an item is selected
@@ -119,12 +130,32 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
 
     private fun loadUserData() {
         val (cachedImageUrl, cachedName, cachedEmail) = getUserData()
+
+        // Show the Lottie loader
+        navImageLoader.visibility = View.VISIBLE
+
         if (!cachedImageUrl.isNullOrEmpty()) {
-            Picasso.get().load(cachedImageUrl).into(navHeaderImage)
+            Picasso.get().load(cachedImageUrl).into(navHeaderImage, object : com.squareup.picasso.Callback {
+                override fun onSuccess() {
+                    // Hide the loader on success
+                    navImageLoader.visibility = View.GONE
+                }
+
+                override fun onError(e: Exception?) {
+                    // Hide the loader on error
+                    navImageLoader.visibility = View.GONE
+                    Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            // Hide the loader if the URL is empty
+            navImageLoader.visibility = View.GONE
         }
+
         navHeaderUsername.text = cachedName ?: ""
         navHeaderEmail.text = cachedEmail ?: ""
     }
+
 
     private fun getUserData(): Triple<String?, String?, String?> {
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
@@ -152,10 +183,29 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
     }
 
     private fun loadImage(imageUrl: String?) {
+        // Show the Lottie loader
+        binding.profileImageLoader.visibility = View.VISIBLE
+
+        // Load the image using Picasso
         if (!imageUrl.isNullOrEmpty()) {
-            Picasso.get().load(imageUrl).into(binding.UserImagePostTopBar)
+            Picasso.get().load(imageUrl).into(binding.UserImagePostTopBar, object : com.squareup.picasso.Callback {
+                override fun onSuccess() {
+                    // Hide the loader on success
+                    binding.profileImageLoader.visibility = View.GONE
+                }
+
+                override fun onError(e: Exception?) {
+                    // Hide the loader on error
+                    binding.profileImageLoader.visibility = View.GONE
+                    Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            // Hide the loader if the URL is empty
+            binding.profileImageLoader.visibility = View.GONE
         }
     }
+
 
     private fun loadImageFromPrefs() {
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
