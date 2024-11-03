@@ -16,8 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
 
-    private val sharedViewModel: SharedViewModel by viewModels()  // declare the SharedViewModel variable
-
+    private val sharedViewModel: SharedViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +31,8 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
         navView.setupWithNavController(navController)
 
-//        fetchUserDataOnce()
-
+        // Fetch user data once the activity is created
+        fetchUserDataOnce()
     }
 
     private fun fetchUserDataOnce() {
@@ -54,5 +53,4 @@ class MainActivity : AppCompatActivity() {
                 }
         }
     }
-
 }

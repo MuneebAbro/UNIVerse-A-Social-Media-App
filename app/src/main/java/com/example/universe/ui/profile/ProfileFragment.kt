@@ -32,61 +32,33 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Load user data from SharedPreferences
-        loadUserData()
+        // Observe user data from SharedViewModel
+        observeUserData()
 
         // Clear data on "Edit Profile" button click
         binding.editProfileBtn.setOnClickListener {
-
             val intent = Intent(activity, SignUpActivity::class.java)
             intent.putExtra("MODE", 1)
             activity?.startActivity(intent)
         }
 
-     showLogoutDialog(requireContext()){
-         logout()
-     }
-
         return root
     }
 
-    private fun logout() {
-        // Clear shared preferences
-        requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).edit().clear().apply()
-
-        // Sign out from Firebase Auth
-        FirebaseAuth.getInstance().signOut()
-
-        // Navigate to LoginActivity
-        val intent = Intent(requireContext(), LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-    }
-
-
-
-
-    private fun loadUserData() {
-        val (cachedImageUrl, cachedName, cachedEmail) = getUserData()
-
-        // Load user profile image if available
-        if (!cachedImageUrl.isNullOrEmpty()) {
-            Picasso.get().load(cachedImageUrl).into(binding.circleProfileImage)
+    private fun observeUserData() {
+        sharedViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
+            if (!imageUrl.isNullOrEmpty()) {
+                Picasso.get().load(imageUrl).into(binding.circleProfileImage)
+            }
         }
 
-        // Load user name if available
-        binding.nameTvProfile.text = cachedName ?: "Unknown Name"
+        sharedViewModel.userName.observe(viewLifecycleOwner) { name ->
+            binding.nameTvProfile.text = name ?: "Unknown Name"
+        }
 
-        // Load user email if available
-        binding.profileEmailTV.text = cachedEmail ?: "Unknown Email"
-    }
-
-    private fun getUserData(): Triple<String?, String?, String?> {
-        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val imageUrl = sharedPreferences.getString("profile_image_url", null)
-        val name = sharedPreferences.getString("user_name", null)
-        val email = sharedPreferences.getString("user_email", null)
-        return Triple(imageUrl, name, email)
+        sharedViewModel.userEmail.observe(viewLifecycleOwner) { email ->
+            binding.profileEmailTV.text = email ?: "Unknown Email"
+        }
     }
 
     override fun onDestroyView() {

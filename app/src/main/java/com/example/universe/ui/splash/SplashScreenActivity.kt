@@ -64,10 +64,10 @@ class SplashScreenActivity : AppCompatActivity() {
                     val email = document.getString("email") ?: "Unknown Email"
                     val imageUrl = document.getString("image") ?: ""
 
-                    saveUserData(name, email, imageUrl)  // Save data locally
-
-                    // Navigate to MainActivity
-                    navigateToMain()
+                    saveUserData(name, email, imageUrl) {
+                        // Navigate to MainActivity after user data is saved
+                        navigateToMain()
+                    }
                 } else {
                     // User data does not exist, navigate to LoginActivity
                     navigateToLogin()
@@ -79,12 +79,15 @@ class SplashScreenActivity : AppCompatActivity() {
             }
     }
 
-    private fun saveUserData(name: String, email: String, imageUrl: String) {
+    private fun saveUserData(name: String, email: String, imageUrl: String, onComplete: () -> Unit) {
         sharedPreferences.edit()
             .putString("user_name", name)
             .putString("user_email", email)
             .putString("profile_image_url", imageUrl)
             .apply()
+
+        // Call the completion callback
+        onComplete()
     }
 
     private fun navigateToLogin() {
