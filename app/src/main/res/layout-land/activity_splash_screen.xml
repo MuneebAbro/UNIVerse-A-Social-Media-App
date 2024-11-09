@@ -30,6 +30,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/postInsideViewQna"
+        app:layout_constraintEnd_toEndOf="@+id/splash_text"
+        app:layout_constraintStart_toStartOf="@+id/splash_text"
+        app:layout_constraintTop_toBottomOf="@+id/splash_text"
+        app:lottie_autoPlay="true"
+        app:lottie_colorFilter="@color/white"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loader" />
+
     <!-- Optional branding text at the bottom -->
 
     <View

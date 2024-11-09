@@ -63,11 +63,15 @@
 
             <ImageView
                 android:id="@+id/PostSettings"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/menu"
                 android:src="@drawable/settings"
                 android:layout_marginEnd="4dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:tint="@color/adaptive_black"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -81,6 +81,11 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
             startActivity(intent)
         }
 
+        binding.PostSettings.setOnClickListener {
+            val intent = Intent(requireContext(), SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.UserImagePostTopBar.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }

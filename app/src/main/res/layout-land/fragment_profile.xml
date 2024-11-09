@@ -22,6 +22,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieLoaderProfile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        app:layout_constraintBottom_toBottomOf="@+id/circleProfileImage"
+        app:layout_constraintEnd_toEndOf="@+id/circleProfileImage"
+        app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
+        app:layout_constraintTop_toTopOf="@+id/circleProfileImage"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loader" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleProfileImage"
         android:layout_width="150dp"
