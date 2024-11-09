@@ -57,7 +57,6 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
         navHeaderUsername = headerView.findViewById(R.id.nav_header_username)
         navHeaderEmail = headerView.findViewById(R.id.nav_header_email)
         navImageLoader = headerView.findViewById(R.id.navImageLoader)
-        loadUserData()
         // Set the listener for navigation item clicks
         navigationView.setNavigationItemSelectedListener(this)
 
@@ -69,7 +68,7 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
 
         // Observe profile image URL from SharedViewModel
         sharedViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
-            loadImage(imageUrl)
+            loadData(imageUrl)
         }
 
         // Load image directly from SharedPreferences as a fallback
@@ -133,42 +132,6 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
         startActivity(intent)
     }
 
-    private fun loadUserData() {
-        val (cachedImageUrl, cachedName, cachedEmail) = getUserData()
-
-        // Show the Lottie loader
-        navImageLoader.visibility = View.VISIBLE
-
-        if (!cachedImageUrl.isNullOrEmpty()) {
-            Picasso.get().load(cachedImageUrl).into(navHeaderImage, object : com.squareup.picasso.Callback {
-                override fun onSuccess() {
-                    // Hide the loader on success
-                    navImageLoader.visibility = View.GONE
-                }
-
-                override fun onError(e: Exception?) {
-                    // Hide the loader on error
-                    navImageLoader.visibility = View.GONE
-                    Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show()
-                }
-            })
-        } else {
-            // Hide the loader if the URL is empty
-            navImageLoader.visibility = View.GONE
-        }
-
-        navHeaderUsername.text = cachedName ?: ""
-        navHeaderEmail.text = cachedEmail ?: ""
-    }
-
-
-    private fun getUserData(): Triple<String?, String?, String?> {
-        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val imageUrl = sharedPreferences.getString("profile_image_url", null)
-        val name = sharedPreferences.getString("user_name", null)
-        val email = sharedPreferences.getString("user_email", null)
-        return Triple(imageUrl, name, email)
-    }
 
     private fun fetchPosts(recyclerView: RecyclerView) {
         firestore.collection(POSTS_NODE)
@@ -187,7 +150,7 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
             }
     }
 
-    private fun loadImage(imageUrl: String?) {
+    private fun loadData(imageUrl: String?) {
         // Show the Lottie loader
         binding.profileImageLoader.visibility = View.VISIBLE
 
@@ -199,12 +162,23 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
                     binding.profileImageLoader.visibility = View.GONE
                 }
 
+
                 override fun onError(e: Exception?) {
                     // Hide the loader on error
                     binding.profileImageLoader.visibility = View.GONE
                     Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show()
                 }
             })
+
+            sharedViewModel.userName.observe(viewLifecycleOwner) { name ->
+                navHeaderUsername.text = name ?: "Unknown Name"
+            }
+
+            sharedViewModel.userEmail.observe(viewLifecycleOwner) { email ->
+                navHeaderEmail.text = email ?: "Unknown Email"
+            }
+
+            Picasso.get().load(imageUrl).into(navHeaderImage)
         } else {
             // Hide the loader if the URL is empty
             binding.profileImageLoader.visibility = View.GONE
@@ -212,10 +186,11 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
     }
 
 
-    private fun loadImageFromPrefs() {
+    private fun loadImageFromPrefs()
+    {
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val imageUrl = sharedPreferences.getString("profile_image_url", null)
-        loadImage(imageUrl)
+        loadData(imageUrl)
     }
 
     override fun onDestroyView() {

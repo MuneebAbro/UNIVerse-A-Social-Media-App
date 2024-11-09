@@ -3,16 +3,11 @@ package com.example.universe.ui.settings
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.activityViewModels
 import com.example.universe.R
 import com.example.universe.databinding.ActivitySettingsBinding
-import com.example.universe.model.SharedViewModel
 import com.example.universe.ui.login.LoginActivity
 import com.example.universe.utils.DialogUtils.showLogoutDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -41,6 +36,14 @@ class SettingsActivity : AppCompatActivity() {
 
         }
 
+        binding.preferencesCL.setOnClickListener {
+            preferenceActivity()
+        }
+    }
+
+    private fun preferenceActivity() {
+        val intent = Intent(this,PreferencesActivity::class.java)
+        startActivity(intent)
     }
 
     private fun logout() {
@@ -55,6 +58,7 @@ class SettingsActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
+
     private fun loadUserData() {
         val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val profileImageUrl = sharedPreferences.getString("profile_image_url", "")
@@ -93,16 +97,5 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-
-
-
-
-    private fun getUserData(): Triple<String?, String?, String?> {
-        val sharedPreferences = this.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val imageUrl = sharedPreferences.getString("profile_image_url", null)
-        val name = sharedPreferences.getString("user_name", null)
-        val email = sharedPreferences.getString("user_email", null)
-        return Triple(imageUrl, name, email)
-    }
 
 }

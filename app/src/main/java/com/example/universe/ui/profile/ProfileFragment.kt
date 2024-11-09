@@ -47,7 +47,7 @@ class ProfileFragment : Fragment() {
 
     private fun observeUserData() {
         // Show loader initially
-        binding.lottieLoaderProfile?.visibility = View.VISIBLE
+        binding.lottieLoaderProfile.visibility = View.VISIBLE
         binding.circleProfileImage.visibility = View.INVISIBLE
 
         sharedViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
@@ -56,9 +56,10 @@ class ProfileFragment : Fragment() {
                     .into(binding.circleProfileImage, object : com.squareup.picasso.Callback {
                         override fun onSuccess() {
                             // Hide the loader and show the image
-                            binding.lottieLoaderProfile?.visibility = View.INVISIBLE
+                            binding.lottieLoaderProfile.visibility = View.INVISIBLE
                             binding.circleProfileImage.visibility = View.VISIBLE
                         }
+
 
                         override fun onError(e: Exception?) {
                             // Hide loader and show a placeholder image if there's an error
