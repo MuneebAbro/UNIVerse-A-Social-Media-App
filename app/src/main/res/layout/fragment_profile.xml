@@ -174,13 +174,13 @@
         <!-- Posts Section Title -->
         <TextView
             android:id="@+id/TVposts"
+            style="@style/TextAppearance.Nexa.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Posts"
-            style="@style/TextAppearance.Nexa.Bold"
-            android:textSize="18sp"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+            android:text="Posts"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@+id/profileEmailTV"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
         <!-- RecyclerView for Posts -->
@@ -190,8 +190,7 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:paddingTop="8dp"
-            android:paddingBottom="100dp"
+            android:paddingBottom="50dp"
             android:clipToPadding="false"
             tools:listitem="@layout/item_qna"
             app:layout_constraintStart_toStartOf="parent"
