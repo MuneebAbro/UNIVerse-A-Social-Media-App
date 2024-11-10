@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -9,102 +9,215 @@
     android:layout_marginBottom="?attr/actionBarSize"
     tools:context=".ui.profile.ProfileFragment">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:contentDescription="@string/dummy_bkg"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:maxHeight="150dp"
-        android:src="@drawable/dummy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieLoaderProfile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerInParent="true"
-        app:layout_constraintBottom_toBottomOf="@+id/circleProfileImage"
-        app:layout_constraintEnd_toEndOf="@+id/circleProfileImage"
-        app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
-        app:layout_constraintTop_toTopOf="@+id/circleProfileImage"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loader" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleProfileImage"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:maxWidth="200dp"
-        android:maxHeight="200dp"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/avatar"
-        app:civ_border_color="@color/bkg"
-        app:civ_border_width="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/nameTvProfile"
-        style="@style/TextAppearance.Nexa.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dummy_name"
-        android:textColor="@color/adaptive_black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/circleProfileImage"
-        app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/circleProfileImage" />
-
-    <TextView
-        android:id="@+id/profileEmailTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dummy_username"
-        android:textColor="@color/gray_hint"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/circleProfileImage"
-        app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/nameTvProfile" />
-
-    <TextView
-        android:id="@+id/textView7"
-        style="@style/TextAppearance.Nexa.Light"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginStart="22dp"
-        android:text="@string/lorem_ipsum"
-        android:textColor="@color/adaptive_black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/circleProfileImage"
-        app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/profileEmailTV" />
+        android:paddingBottom="16dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/editProfileBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/adaptive_black"
-        android:src="@drawable/plus"
-        app:cardCornerRadius="12dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
+        <!-- ImageView for background image -->
         <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/dummy_bkg"
+            android:maxHeight="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dummy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Lottie Animation for loader -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieLoaderProfile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            app:layout_constraintBottom_toBottomOf="@+id/circleProfileImage"
+            app:layout_constraintEnd_toEndOf="@+id/circleProfileImage"
+            app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
+            app:layout_constraintTop_toTopOf="@+id/circleProfileImage"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loader" />
+
+        <!-- Profile Image -->
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/circleProfileImage"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/avatar"
+            app:civ_border_color="@color/bkg"
+            app:civ_border_width="12dp"
+            app:civ_circle_color="@color/adaptive_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Name Text -->
+        <TextView
+            android:id="@+id/nameTvProfile"
+            style="@style/TextAppearance.Nexa.Bold"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/dummy_name"
+            android:textColor="@color/adaptive_black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
+            app:layout_constraintTop_toBottomOf="@+id/circleProfileImage" />
+
+        <!-- Gender Text -->
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="He/Him"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/gray_hint"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/nameTvProfile"
+            app:layout_constraintStart_toEndOf="@+id/nameTvProfile"
+            app:layout_constraintTop_toTopOf="@+id/nameTvProfile" />
+
+        <!-- Profile Email -->
+        <TextView
+            android:id="@+id/profileEmailTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/dummy_username"
+            android:textColor="@color/gray_hint"
+            android:textSize="16sp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
+            app:layout_constraintTop_toBottomOf="@+id/nameTvProfile" />
+
+        <!-- Bio Text -->
+        <TextView
+            android:id="@+id/textView7"
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Bio..."
+            android:textColor="@color/adaptive_black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/circleProfileImage"
+            app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
+            app:layout_constraintTop_toBottomOf="@+id/profileEmailTV" />
+
+        <!-- Location and Birthday Section -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView7">
+
+            <LinearLayout
+                android:id="@+id/locationLL"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/location"
+                    app:tint="@color/gray_hint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:gravity="bottom"
+                    android:text="Karachi, Pakistan" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="32dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/locationLL"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/cake"
+                    app:tint="@color/gray_hint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:gravity="bottom"
+                    android:text="Born August 2004" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Posts Section Title -->
+        <TextView
+            android:id="@+id/TVposts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posts"
+            style="@style/TextAppearance.Nexa.Bold"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <!-- RecyclerView for Posts -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profileRV"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingTop="8dp"
+            android:paddingBottom="100dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_qna"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TVposts" />
+
+        <!-- Edit Profile Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/editProfileBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:src="@drawable/edit"
-            app:tint="@color/adaptive_white" />
-    </com.google.android.material.card.MaterialCardView>
+            android:backgroundTint="@color/adaptive_black"
+            android:src="@drawable/plus"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Edit Profile"
+                android:textColor="@color/adaptive_white" />
+        </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

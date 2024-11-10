@@ -1,5 +1,6 @@
 package com.example.universe.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -54,9 +55,11 @@ class SignUpActivity : AppCompatActivity() {
         if (intent.hasExtra("MODE")){
             if (intent.getIntExtra("MODE",-1) == 1){
                 binding.linearLayoutSignUp.visibility = View.GONE
+                binding.signupLoader.visibility = View.GONE
                 binding.profileImage.visibility = View.VISIBLE
+                binding.emailEditText.editText?.isEnabled = false
                 "Update Profile".also { binding.signUpText.text = it }
-                "Update Your \nAccount".also { binding.createAccountTVDummy?.text = it }
+                "Update Your \nAccount".also { binding.createAccountTVDummy.text = it }
                 Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).get()
                     .addOnSuccessListener {
 
@@ -79,13 +82,10 @@ class SignUpActivity : AppCompatActivity() {
         // if we use normal signUp
         else {
             binding.linearLayoutSignUp.visibility = View.VISIBLE
-            binding.profileImage.visibility = View.GONE
+            binding.signupLoader.visibility = View.GONE
+            binding.profileImage.visibility = View.VISIBLE
         }
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
 
         binding.LoginTV.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -152,6 +152,7 @@ class SignUpActivity : AppCompatActivity() {
                             binding.passwordEditText.editText?.text.toString()  //set user password to the password entered
 
                        Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).set(user).addOnSuccessListener {
+                           saveUserDataToSharedPreferences()
                            Toast.makeText(this@SignUpActivity,"Success",Toast.LENGTH_SHORT).show()
                        }
 
@@ -172,13 +173,23 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.materialCardView.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            onBackPressedDispatcher.onBackPressed()
         }
+
 
         binding.profileImage.setOnClickListener{
             galleryLauncher.launch("image/*")
         }
     }
+
+    private fun saveUserDataToSharedPreferences() {
+        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().apply {
+            putString("profile_image_url", user.image)
+            putString("user_name", user.name)
+            putString("user_email", user.email)
+            apply()
+        }
+    }
+
 }

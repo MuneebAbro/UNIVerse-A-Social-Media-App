@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation("com.mikhaellopez:circularimageview:4.3.1")
     implementation(libs.firebase.auth)
     implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
     implementation("com.google.firebase:firebase-analytics")
