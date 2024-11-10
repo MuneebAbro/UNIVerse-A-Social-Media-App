@@ -1,5 +1,6 @@
 package com.example.universe
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -9,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.universe.databinding.ActivityMainBinding
 import com.example.universe.model.SharedViewModel
 import com.example.universe.model.User
+import com.example.universe.ui.post.NewPostActivity
 import com.example.universe.utils.USER_NODE
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +26,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
+        binding.fab.setOnClickListener {
+            val intent = Intent(this, NewPostActivity::class.java)
+            startActivity(intent)
+        }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment

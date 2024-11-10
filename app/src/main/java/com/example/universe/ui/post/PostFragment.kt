@@ -74,11 +74,6 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
         // Load image directly from SharedPreferences as a fallback
         loadImageFromPrefs()
 
-        // Handle FAB click for creating a new post
-        binding.fabPost.setOnClickListener {
-            val intent = Intent(context, NewPostActivity::class.java)
-            startActivity(intent)
-        }
 
         binding.PostSettings.setOnClickListener {
             val intent = Intent(requireContext(), SettingsActivity::class.java)
