@@ -112,7 +112,8 @@ class ProfileFragment : Fragment() {
                         .get()
                         .addOnSuccessListener { querySnapshot ->
                             val posts = querySnapshot.toObjects(Post::class.java)
-                            val adapter = PostCardAdapter(posts) { post ->
+                            val sortedPosts = posts.sortedByDescending { it.timestamp }
+                            val adapter = PostCardAdapter(sortedPosts) { post ->
                                 val intent = Intent(context, CommentsActivity::class.java)
                                 intent.putExtra("post_data", post)
                                 startActivity(intent)
