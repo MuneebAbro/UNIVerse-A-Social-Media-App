@@ -1,5 +1,6 @@
 package com.example.universe.ui.profile
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,7 @@ import com.example.universe.ui.post.CommentsActivity
 import com.example.universe.utils.POSTS_NODE
 import com.squareup.picasso.Picasso
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Locale
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -85,13 +87,19 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        sharedViewModel.userName.observe(viewLifecycleOwner) { name ->
-            binding.nameTvProfile.text = name ?: "Unknown Name"
-        }
 
-        sharedViewModel.userEmail.observe(viewLifecycleOwner) { email ->
-            binding.profileEmailTV.text = email ?: "Unknown Email"
-        }
+        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userUsername = sharedPreferences.getString("user_username",
+                                                       sharedPreferences.getString("user_name", "Unknown Name")
+                                                               ?.replace(" ", "_")
+                                                               ?.lowercase(Locale.ROOT)
+        )
+        val userName = sharedPreferences.getString("user_name", "Unknown Name")
+
+        // Set the username to the TextView
+        binding.profileUserName.text = userUsername
+        binding.nameTvProfile.text = userName
+
     }
 
     private fun fetchPosts(recyclerView: RecyclerView) {

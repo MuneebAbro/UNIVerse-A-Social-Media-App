@@ -83,7 +83,7 @@
 
         <!-- Profile Email -->
         <TextView
-            android:id="@+id/profileEmailTV"
+            android:id="@+id/profileUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -108,7 +108,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/circleProfileImage"
             app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
-            app:layout_constraintTop_toBottomOf="@+id/profileEmailTV" />
+            app:layout_constraintTop_toBottomOf="@+id/profileUserName" />
 
         <!-- Location and Birthday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -180,7 +180,7 @@
             android:layout_marginTop="16dp"
             android:text="Posts"
             android:textSize="22sp"
-            app:layout_constraintStart_toStartOf="@+id/profileEmailTV"
+            app:layout_constraintStart_toStartOf="@+id/profileUserName"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
         <!-- RecyclerView for Posts -->
@@ -192,7 +192,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:paddingBottom="50dp"
             android:clipToPadding="false"
-            tools:listitem="@layout/item_qna"
+            tools:listitem="@layout/item_post"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/TVposts" />
 

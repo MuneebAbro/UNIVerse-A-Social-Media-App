@@ -12,6 +12,7 @@ import com.example.universe.ui.login.LoginActivity
 import com.example.universe.utils.DialogUtils.showLogoutDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
+import java.util.Locale
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
@@ -35,6 +36,7 @@ class SettingsActivity : AppCompatActivity() {
             }
 
         }
+
 
         binding.preferencesCL.setOnClickListener {
             preferenceActivity()
@@ -63,7 +65,11 @@ class SettingsActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val profileImageUrl = sharedPreferences.getString("profile_image_url", "")
         val userName = sharedPreferences.getString("user_name", "Unknown Name")
-        val userEmail = sharedPreferences.getString("user_email", "Unknown Email")
+        val userUsername = sharedPreferences.getString("user_username",
+                                                       sharedPreferences.getString("user_name", "Unknown Name")
+                                                               ?.replace(" ", "_")
+                                                               ?.lowercase(Locale.ROOT)
+        )
 
         // Show Lottie animation initially
         binding.lottieLoader.visibility = View.VISIBLE
@@ -71,7 +77,7 @@ class SettingsActivity : AppCompatActivity() {
 
         // Set user name and email
         binding.nameTvSettings.text = userName
-        binding.settingsEmailTV.text = userEmail
+        binding.settingsEmailTV.text = userUsername
 
         if (!profileImageUrl.isNullOrEmpty()) {
             Picasso.get().load(profileImageUrl)

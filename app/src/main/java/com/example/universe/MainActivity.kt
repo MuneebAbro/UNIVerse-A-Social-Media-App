@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
-        binding.fab.setOnClickListener {
+        binding.fabCenter.setOnClickListener {
             val intent = Intent(this, NewPostActivity::class.java)
             startActivity(intent)
         }

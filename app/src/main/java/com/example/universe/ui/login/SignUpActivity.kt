@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.universe.MainActivity
 import com.example.universe.R
 import com.example.universe.databinding.ActivitySignUpBinding
@@ -17,28 +15,24 @@ import com.example.universe.model.User
 import com.example.universe.utils.USER_NODE
 import com.example.universe.utils.USER_PROFILE_FOLDER
 import com.example.universe.utils.uploadImage
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var user: User
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()){      // this will get the image from user's device
-        uri ->
-
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let {
-
-           uploadImage(uri, USER_PROFILE_FOLDER){
-                if (it == null){
-                    Toast.makeText(this,"Something went wrong",Toast.LENGTH_SHORT).show()
-                }else{
-                    user.image = it
+            uploadImage(uri, USER_PROFILE_FOLDER) { imageUrl ->
+                if (imageUrl == null) {
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                } else {
+                    user.image = imageUrl
                     binding.profileImage.setImageURI(uri)
                 }
             }
-
         }
     }
 
@@ -50,125 +44,90 @@ class SignUpActivity : AppCompatActivity() {
         enableEdgeToEdge()
         user = User()
 
-        // if we open this activity from Edit Profile
+        // Handle case for editing profile (Edit Profile Mode)
+        if (intent.hasExtra("MODE") && intent.getIntExtra("MODE", -1) == 1) {
+            binding.linearLayoutSignUp.visibility = View.GONE
+            binding.signupLoader.visibility = View.GONE
+            binding.profileImage.visibility = View.VISIBLE
+            binding.emailEditText.editText?.isEnabled = false
+            binding.signUpText.text = "Update Profile"
+            binding.createAccountTVDummy.text = "Update Your \nAccount"
 
-        if (intent.hasExtra("MODE")){
-            if (intent.getIntExtra("MODE",-1) == 1){
-                binding.linearLayoutSignUp.visibility = View.GONE
-                binding.signupLoader.visibility = View.GONE
-                binding.profileImage.visibility = View.VISIBLE
-                binding.emailEditText.editText?.isEnabled = false
-                "Update Profile".also { binding.signUpText.text = it }
-                "Update Your \nAccount".also { binding.createAccountTVDummy.text = it }
-                Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).get()
+            // Fetch user data from Firestore for editing
+            Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).get()
                     .addOnSuccessListener {
-
-                        user= it.toObject(User::class.java)!!
-
+                        user = it.toObject(User::class.java)!!
                         binding.nameEditText.editText?.setText(user.name)
                         binding.emailEditText.editText?.setText(user.email)
                         binding.passwordEditText.editText?.setText(user.password)
 
+                        // Load profile image if available
                         if (!user.image.isNullOrEmpty()) {
-
-                            // load image using picasso
                             Picasso.get().load(user.image).into(binding.profileImage)
                         }
-
                     }
-            }
-        }
-
-        // if we use normal signUp
-        else {
+        } else {
+            // Handle case for new signup
             binding.linearLayoutSignUp.visibility = View.VISIBLE
             binding.signupLoader.visibility = View.GONE
             binding.profileImage.visibility = View.VISIBLE
         }
 
-
+        // Login redirection
         binding.LoginTV.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
 
-        binding.signUpBtn.setOnClickListener {
+        // Continue button click handler for both modes (sign up / edit)
+        binding.continueBtn.setOnClickListener {
+            if (intent.hasExtra("MODE") && intent.getIntExtra("MODE", -1) == 1) {
+                // Update existing profile
+                Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).set(user)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        }
+            } else {
+                // Normal sign up
+                if (binding.nameEditText.editText?.text.toString().isEmpty() ||
+                    binding.emailEditText.editText?.text.toString().isEmpty() ||
+                    binding.passwordEditText.editText?.text.toString().isEmpty()) {
 
-            // if we are updating data from edit profile
+                    Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
+                } else if (!binding.emailEditText.editText?.text.toString().contains("iqra.edu.pk")) {
+                    Toast.makeText(this, "Please use your IQRA email", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Register new user
+                    Firebase.auth.createUserWithEmailAndPassword(
+                            binding.emailEditText.editText?.text.toString(),
+                            binding.passwordEditText.editText?.text.toString()
+                    ).addOnCompleteListener { result ->
+                        if (result.isSuccessful) {
+                            user.name = binding.nameEditText.editText?.text.toString()
+                            user.email = binding.emailEditText.editText?.text.toString()
+                            user.password = binding.passwordEditText.editText?.text.toString()
 
-            if (intent.hasExtra("MODE")){
-                if (intent.getIntExtra("MODE",-1) == 1){
+                            // Set username to the user's name with spaces replaced by underscores
+                            user.username = user.name!!.replace(" ", "_")
 
-                    Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).set(user).addOnSuccessListener {
-                        Toast.makeText(this,"Profile Updated",Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@SignUpActivity,MainActivity::class.java))
-                        finish()
+                            // Save user data to Firestore
+                            Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid)
+                                    .set(user)
+                                    .addOnSuccessListener {
+                                        saveUserDataToSharedPreferences()
+                                        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+
+                                        // Redirect to the main activity
+                                        startActivity(Intent(this, MainActivity::class.java))
+                                        finish()
+                                    }
+                        } else {
+                            Toast.makeText(this, result.exception?.localizedMessage, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
-            }
-
-            // else if user is opening app first time he will see a normal signUp Screen
-
-            else{
-
-
-            if (binding.nameEditText.editText?.text.toString()
-                    .isEmpty() or binding.emailEditText.editText?.text.toString()
-                    .isEmpty() or binding.passwordEditText.editText?.text.toString().isEmpty()
-            ) {
-
-                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
-
-            }
-
-            // check if user is logging in from official university email
-
-            else if (!binding.emailEditText.editText?.text.toString().contains("iqra.edu.pk")) {
-
-                Toast.makeText(
-                    this@SignUpActivity,
-                    "Please use your IQRA email",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            // if no issues then register the user
-
-            else {
-
-                Firebase.auth.createUserWithEmailAndPassword(
-                    binding.emailEditText.editText?.text.toString(),
-                    binding.passwordEditText.editText?.text.toString()
-                ).addOnCompleteListener { result ->
-
-                    if (result.isSuccessful) {
-
-                        user.name =
-                            binding.nameEditText.editText?.text.toString()      //set user name to the name entered
-                        user.email =
-                            binding.emailEditText.editText?.text.toString()    //set user email to the email entered
-                        user.password =
-                            binding.passwordEditText.editText?.text.toString()  //set user password to the password entered
-
-                       Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).set(user).addOnSuccessListener {
-                           saveUserDataToSharedPreferences()
-                           Toast.makeText(this@SignUpActivity,"Success",Toast.LENGTH_SHORT).show()
-                       }
-
-
-                        Toast.makeText(this, "User created successfully", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-
-                    } else {
-                        Toast.makeText(this, result.exception?.localizedMessage, Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-
-            }
             }
         }
 
@@ -176,8 +135,8 @@ class SignUpActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-
-        binding.profileImage.setOnClickListener{
+        // Open image picker
+        binding.profileImage.setOnClickListener {
             galleryLauncher.launch("image/*")
         }
     }
@@ -188,8 +147,8 @@ class SignUpActivity : AppCompatActivity() {
             putString("profile_image_url", user.image)
             putString("user_name", user.name)
             putString("user_email", user.email)
+            putString("user_username", user.username)
             apply()
         }
     }
-
 }

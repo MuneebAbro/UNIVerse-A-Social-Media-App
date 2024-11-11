@@ -28,6 +28,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
+import java.util.Locale
 
 class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener  {
 
@@ -88,11 +89,7 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_profile -> {
-                // Handle navigation item click
-                // Example: Open profile screen or perform any other action
-                return true
-            }
+
             R.id.nav_logout -> {
 
                 showLogoutDialog(requireContext()){
@@ -165,13 +162,6 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
                 }
             })
 
-            sharedViewModel.userName.observe(viewLifecycleOwner) { name ->
-                navHeaderUsername.text = name ?: "Unknown Name"
-            }
-
-            sharedViewModel.userEmail.observe(viewLifecycleOwner) { email ->
-                navHeaderEmail.text = email ?: "Unknown Email"
-            }
 
             Picasso.get().load(imageUrl).into(navHeaderImage)
         } else {
@@ -185,6 +175,18 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
     {
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val imageUrl = sharedPreferences.getString("profile_image_url", null)
+
+        val userUsername = sharedPreferences.getString("user_username",
+                                                       sharedPreferences.getString("user_name", "Unknown Name")
+                                                               ?.replace(" ", "_")
+                                                               ?.lowercase(Locale.ROOT)
+        )
+
+        val userName = sharedPreferences.getString("user_name", "Unknown Name")
+
+        // Set the username to the TextView
+       navHeaderEmail.text = userUsername
+        navHeaderUsername.text = userName
         loadData(imageUrl)
     }
 
