@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="12dp"
+            android:contentDescription="@string/back"
             android:src="@drawable/back"
             app:tint="@color/adaptive_white" />
     </com.google.android.material.card.MaterialCardView>
@@ -60,7 +61,6 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/edit_text_gray_bkg"
             android:backgroundTintMode="add"
-            android:drawableEnd="@drawable/search"
             android:drawablePadding="12dp"
             android:drawableTint="@color/priamry_blue"
             android:inputType="textEmailAddress"
@@ -69,10 +69,32 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <ImageView
+        android:id="@+id/search_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Discover \nAnything?"
+        android:src="@drawable/search"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/loginEmailEditText"
+        app:layout_constraintEnd_toEndOf="@+id/loginEmailEditText"
+        app:layout_constraintTop_toTopOf="@+id/loginEmailEditText"
+        app:tint="@color/gray_hint" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginEmailEditText" />
+
+    <TextView
+        android:id="@+id/static_text_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/discover_anything"
         android:gravity="center"
         style="@style/TextAppearance.Nexa.Bold"
         android:textSize="36sp"
