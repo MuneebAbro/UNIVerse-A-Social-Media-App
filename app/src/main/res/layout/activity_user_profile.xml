@@ -139,6 +139,7 @@
                     app:tint="@color/gray_hint" />
 
                 <TextView
+                    android:id="@+id/cityTV"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
@@ -163,6 +164,7 @@
                     app:tint="@color/gray_hint" />
 
                 <TextView
+                    android:id="@+id/dobTV"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"

@@ -20,6 +20,8 @@ import com.example.universe.model.SharedViewModel
 import com.example.universe.ui.login.SignUpActivity
 import com.example.universe.ui.post.CommentsActivity
 import com.example.universe.utils.POSTS_NODE
+import com.example.universe.utils.USER_NODE
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
@@ -39,8 +41,8 @@ class ProfileFragment : Fragment() {
         val root: View = binding.root
 
         // Set up RecyclerView
-        postAdapter = PostCardAdapter(emptyList()) { post ->
-            // Handle post click if needed
+        postAdapter = PostCardAdapter(emptyList()){
+
         }
         binding.profileRV.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -49,12 +51,13 @@ class ProfileFragment : Fragment() {
 
         // Observe user data (profile image, name, email)
         observeUserData()
-        fetchPosts(binding.profileRV)
+        val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
+        fetchPosts(userEmail = currentUserEmail!!)
 
 
         binding.editProfileBtn.setOnClickListener {
-            val intent = Intent(activity, SignUpActivity::class.java)
-            intent.putExtra("MODE", 1)
+            val intent = Intent(activity, EditProfileActivity::class.java)
+
             activity?.startActivity(intent)
         }
 
@@ -62,33 +65,36 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observeUserData() {
+        val sharedPreferences =
+            requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val profileImage = sharedPreferences.getString("profile_image_url", "")
         binding.lottieLoaderProfile.visibility = View.VISIBLE
         binding.circleProfileImage.visibility = View.INVISIBLE
 
-        sharedViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
-            if (!imageUrl.isNullOrEmpty()) {
-                Picasso.get().load(imageUrl).error(R.drawable.avatar)
-                        .into(binding.circleProfileImage, object : com.squareup.picasso.Callback {
-                            override fun onSuccess() {
-                                binding.lottieLoaderProfile.visibility = View.INVISIBLE
-                                binding.circleProfileImage.visibility = View.VISIBLE
-                            }
+        if (!profileImage.isNullOrEmpty()) { // Load image only if URL is not null or empty
+            Picasso.get().load(profileImage)
+                    .error(R.drawable.avatar) // Fallback image in case of error
+                    .into(binding.circleProfileImage, object : com.squareup.picasso.Callback {
+                        override fun onSuccess() {
+                            binding.lottieLoaderProfile.visibility = View.INVISIBLE
+                            binding.circleProfileImage.visibility = View.VISIBLE
+                        }
 
-                            override fun onError(e: Exception?) {
-                                binding.lottieLoaderProfile.visibility = View.INVISIBLE
-                                binding.circleProfileImage.setImageResource(R.drawable.avatar)
-                                binding.circleProfileImage.visibility = View.VISIBLE
-                            }
-                        })
-            } else {
-                binding.lottieLoaderProfile.visibility = View.INVISIBLE
-                binding.circleProfileImage.setImageResource(R.drawable.avatar)
-                binding.circleProfileImage.visibility = View.VISIBLE
-            }
+                        override fun onError(e: Exception?) {
+                            binding.lottieLoaderProfile.visibility = View.INVISIBLE
+                            binding.circleProfileImage.setImageResource(R.drawable.avatar)
+                            binding.circleProfileImage.visibility = View.VISIBLE
+                        }
+                    })
+        } else {
+            // Handle the case where no URL exists
+            binding.lottieLoaderProfile.visibility = View.INVISIBLE
+            binding.circleProfileImage.setImageResource(R.drawable.avatar)
+            binding.circleProfileImage.visibility = View.VISIBLE
         }
 
 
-        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+
         val userUsername = sharedPreferences.getString("user_username",
                                                        sharedPreferences.getString("user_name", "Unknown Name")
                                                                ?.replace(" ", "_")
@@ -96,34 +102,90 @@ class ProfileFragment : Fragment() {
         )
         val userName = sharedPreferences.getString("user_name", "Unknown Name")
 
+
+
+        val userBio = sharedPreferences.getString("user_bio", "No Bio Yet")
+        val userGender = sharedPreferences.getString("user_gender", "Male")?.trim() ?: "Male"
+
+        val userCity = sharedPreferences.getString("user_city", "Unknown City")
+        binding.locationTV.text = userCity
+
+        val userUid = FirebaseAuth.getInstance().currentUser?.uid
+        if (userUid != null) {
+            val userDocument = FirebaseFirestore.getInstance()
+                    .collection(
+                            USER_NODE)
+                    .document(userUid)
+
+            userDocument.get()
+                    .addOnSuccessListener { document ->
+                        if (document != null && document.exists()) {
+                            val userDob = document.getString("dob") // Ensure "dob" is the exact field name in Firestore
+                            if (!userDob.isNullOrEmpty()) {
+                                binding.bdayTV.text = userDob
+                                binding.bdayLL.visibility = View.VISIBLE
+                            } else {
+                                binding.bdayLL.visibility = View.GONE
+                                binding.bdayTV.text = ""
+                            }
+                        } else {
+                            Toast.makeText(requireContext(), "No document found!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Toast.makeText(requireContext(), "Error retrieving data: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    }
+        } else {
+            Toast.makeText(requireContext(), "User not logged in!", Toast.LENGTH_SHORT).show()
+        }
+
+
+
+
+
+        binding.textView7.text = userBio
+        if (userGender.equals("Male", ignoreCase = true)) { // Case-insensitive comparison
+            binding.gender.text = "he/him"
+        } else {
+            binding.gender.text = "she/her"
+        }
+
         // Set the username to the TextView
         binding.profileUserName.text = userUsername
         binding.nameTvProfile.text = userName
 
+
     }
 
-    private fun fetchPosts(recyclerView: RecyclerView) {
-        // Get the current user's email (assuming it's stored in SharedViewModel)
-        sharedViewModel.userEmail.observe(viewLifecycleOwner) { userEmail ->
-            if (!userEmail.isNullOrEmpty()) {
-                // Query to get posts where the user's email matches
-                firestore.collection(POSTS_NODE)
-                        .whereEqualTo("userEmail", userEmail)  // Filter posts by userEmail
-                        .get()
-                        .addOnSuccessListener { querySnapshot ->
-                            val posts = querySnapshot.toObjects(Post::class.java)
+    private fun fetchPosts(userEmail: String) {
+        if (userEmail.isNotEmpty()) {
+            Log.d("UserProfile", "Fetching posts for user: $userEmail")
+
+            firestore.collection(POSTS_NODE)
+                    .whereEqualTo("userEmail", userEmail)  // Ensure 'email' is the correct field name in Firestore
+                    .get()
+                    .addOnSuccessListener { querySnapshot ->
+                        val posts = querySnapshot.toObjects(Post::class.java)
+                        Log.d("UserProfile", "Posts fetched: ${posts.size}")
+
+                        if (posts.isNotEmpty()) {
                             val sortedPosts = posts.sortedByDescending { it.timestamp }
                             val adapter = PostCardAdapter(sortedPosts) { post ->
-                                val intent = Intent(context, CommentsActivity::class.java)
+                                val intent = Intent(requireContext(), CommentsActivity::class.java)
                                 intent.putExtra("post_data", post)
                                 startActivity(intent)
                             }
-                            recyclerView.adapter = adapter
+                            binding.profileRV.adapter = adapter
+                        } else {
+                            Toast.makeText(requireContext(), "No posts available", Toast.LENGTH_SHORT).show()
                         }
-                        .addOnFailureListener {
-                            Toast.makeText(context, "Failed to fetch posts", Toast.LENGTH_SHORT).show()
-                        }
-            }
+                    }
+                    .addOnFailureListener {
+                        Log.e("UserProfile", "Failed to fetch posts", it)
+                        Toast.makeText(requireContext(), "Failed to fetch posts", Toast.LENGTH_SHORT).show()
+                    }
+        } else {
+            Toast.makeText(requireContext(), "Invalid email", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bkg"
+    android:paddingTop="24dp"
+    tools:context=".ui.profile.EditProfileActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/backBtnEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@color/adaptive_black"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back"
+            app:tint="@color/adaptive_white" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:layout_margin="16dp"
+        android:textSize="24sp"
+        android:textColor="@color/adaptive_black"
+        style="@style/TextAppearance.Nexa.Bold"
+        app:layout_constraintBottom_toBottomOf="@+id/backBtnEditProfile"
+        app:layout_constraintStart_toEndOf="@+id/backBtnEditProfile"
+        app:layout_constraintTop_toTopOf="@+id/backBtnEditProfile" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/editProfileLoader"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toTopOf="@id/imageEditProfile"
+        app:layout_constraintBottom_toBottomOf="@id/imageEditProfile"
+        app:layout_constraintStart_toStartOf="@id/imageEditProfile"
+        app:layout_constraintEnd_toEndOf="@id/imageEditProfile"
+        app:lottie_rawRes="@raw/loader"
+        android:visibility="visible"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/imageEditProfile"
+        android:src="@drawable/avatar"
+        app:civ_border_width="1dp"
+        android:layout_marginTop="12dp"
+        app:civ_border_color="@color/gray_hint"
+        app:layout_constraintTop_toBottomOf="@+id/backBtnEditProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:hint="Name"
+        android:layout_marginTop="16dp"
+        android:textColorHint="@color/gray_hint"
+        app:boxStrokeColor="@color/priamry_blue"
+        app:counterTextColor="@color/priamry_blue"
+        app:cursorColor="@color/priamry_blue"
+        app:hintTextColor="@color/priamry_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/backBtnEditProfile"
+        app:layout_constraintTop_toBottomOf="@+id/imageEditProfile">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/edit_text_gray_bkg"
+            android:backgroundTintMode="add"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/priamry_blue"
+            android:inputType="textPersonName"
+            android:padding="18dp"
+            android:textColor="@color/adaptive_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userNameEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:hint="User Name"
+        android:layout_marginTop="12dp"
+        android:textColorHint="@color/gray_hint"
+        app:boxStrokeColor="@color/priamry_blue"
+        app:counterTextColor="@color/priamry_blue"
+        app:cursorColor="@color/priamry_blue"
+        app:hintTextColor="@color/priamry_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/edit_text_gray_bkg"
+            android:backgroundTintMode="add"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/priamry_blue"
+            android:inputType="text"
+            android:padding="18dp"
+            android:textColor="@color/adaptive_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/bioEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:hint="Bio"
+        android:textColorHint="@color/gray_hint"
+        android:layout_marginTop="12dp"
+        app:boxStrokeColor="@color/priamry_blue"
+        app:counterTextColor="@color/priamry_blue"
+        app:cursorColor="@color/priamry_blue"
+        app:hintTextColor="@color/priamry_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/userNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/userNameEditText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/edit_text_gray_bkg"
+            android:backgroundTintMode="add"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/priamry_blue"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:padding="18dp"
+            android:textColor="@color/adaptive_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/birthdayEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Date Of Birth"
+        style="@style/TextAppearance.Nexa.Light"
+        android:background="@drawable/round_tv"
+        android:drawablePadding="12dp"
+        android:drawableTint="@color/priamry_blue"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:padding="18dp"
+        android:textColor="@color/gray_hint"
+        android:layout_marginTop="12dp"
+        app:hintTextColor="@color/priamry_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bioEditText"
+        app:layout_constraintTop_toBottomOf="@+id/bioEditText">
+
+
+    </TextView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cityEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:hint="City"
+        android:textColorHint="@color/gray_hint"
+        android:layout_marginTop="12dp"
+        app:boxStrokeColor="@color/priamry_blue"
+        app:counterTextColor="@color/priamry_blue"
+        app:cursorColor="@color/priamry_blue"
+        app:hintTextColor="@color/priamry_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/birthdayEditText"
+        app:layout_constraintTop_toBottomOf="@+id/birthdayEditText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextAppearance.Nexa.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/edit_text_gray_bkg"
+            android:backgroundTintMode="add"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/priamry_blue"
+            android:inputType="textPostalAddress"
+            android:maxLines="1"
+            android:padding="18dp"
+            android:textColor="@color/adaptive_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/cityEditText">
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- Male Option -->
+            <RadioButton
+                android:id="@+id/radio_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/gender_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="10dp"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
+                android:text=" Male "
+                android:textColor="@color/adaptive_black"
+                android:textSize="16sp" />
+
+            <!-- Female Option -->
+            <RadioButton
+                android:id="@+id/radio_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/gender_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="10dp"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
+                android:text="Female"
+                android:textColor="@color/adaptive_black"
+                android:textSize="16sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/saveBtn"
+        style="@style/CustomButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/priamry_blue"
+        android:elevation="16dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bioEditText"
+        app:layout_constraintStart_toStartOf="@+id/bioEditText"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/sign_up_text"
+            style="@style/TextAppearance.Nexa.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:padding="12dp"
+            android:text="Save"
+            android:textColor="@color/white" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

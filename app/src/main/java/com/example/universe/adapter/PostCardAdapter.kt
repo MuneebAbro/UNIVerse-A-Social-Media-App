@@ -13,13 +13,18 @@ import com.squareup.picasso.Picasso
 
 
 class PostCardAdapter(
-    private val posts: List<Post>,
-    private val onClick: (Post) -> Unit
+        private var posts: List<Post>,
+        private val onClick: (Post) -> Unit
 ) : RecyclerView.Adapter<PostCardAdapter.PostViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
         return PostViewHolder(view)
+    }
+
+    fun submitList(newPosts: List<Post>) {
+        posts = newPosts
+        notifyDataSetChanged()  // Notify the adapter that the data set has changed
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {

@@ -139,6 +139,7 @@
                     app:tint="@color/gray_hint" />
 
                 <TextView
+                    android:id="@+id/locationTV"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
@@ -147,6 +148,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/bdayLL"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
@@ -163,11 +165,13 @@
                     app:tint="@color/gray_hint" />
 
                 <TextView
+                    android:id="@+id/bdayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
                     android:gravity="bottom"
-                    android:text="Born August 2004" />
+
+                    android:text="Born -" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

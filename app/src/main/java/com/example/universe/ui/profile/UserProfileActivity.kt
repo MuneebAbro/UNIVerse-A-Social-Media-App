@@ -37,9 +37,22 @@ class UserProfileActivity : AppCompatActivity() {
         val name = intent.getStringExtra("userName") ?: ""
         val username = intent.getStringExtra("userUsername") ?: ""
         val imageUrl = intent.getStringExtra("userImageUrl") ?: ""
+        val bio = intent.getStringExtra("userBio") ?: ""
+        val dob = intent.getStringExtra("userDob") ?: ""
+        val city = intent.getStringExtra("userCity") ?: ""
+        val gender = intent.getStringExtra("userGender") ?: ""
+        val pronoun = gender.trim()
 
         binding.nameTvProfile.text = name
         binding.profileUserName.text = username
+        binding.dobTV.text = dob
+        binding.cityTV.text = city
+        binding.textView7.text = bio
+        if (pronoun.equals("Male", ignoreCase = true)) { // Case-insensitive comparison
+            binding.gender.text = "he/him"
+        } else {
+            binding.gender.text = "she/her"
+        }
         Picasso.get().load(imageUrl).into(binding.circleProfileImage)
 
         // Fetch posts for the user

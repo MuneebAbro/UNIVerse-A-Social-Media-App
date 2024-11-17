@@ -40,6 +40,10 @@ class SearchFragment : Fragment() {
             intent.putExtra("userUsername", user.username)
             intent.putExtra("userImageUrl", user.image)
             intent.putExtra("userEmail", user.email)
+            intent.putExtra("userGender", user.gender)
+            intent.putExtra("userBio", user.bio)
+            intent.putExtra("userDob", user.dob)
+            intent.putExtra("userCity", user.city)
             startActivity(intent)
         }
         binding.searchRecyclerView.adapter = userAdapter
@@ -47,6 +51,10 @@ class SearchFragment : Fragment() {
         binding.searchRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
+        }
+
+        binding.materialCardViewSearch.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         // Add TextWatcher to EditText for real-time search
@@ -74,6 +82,8 @@ class SearchFragment : Fragment() {
 
         return root
     }
+
+
 
     private fun searchUsers(query: String) {
         val firestore = FirebaseFirestore.getInstance()

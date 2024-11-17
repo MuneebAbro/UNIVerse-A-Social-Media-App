@@ -1,5 +1,6 @@
 package com.example.universe
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -46,17 +47,26 @@ class MainActivity : AppCompatActivity() {
         currentUser?.let {
             val userId = currentUser.uid
             FirebaseFirestore.getInstance().collection(USER_NODE).document(userId).get()
-                .addOnSuccessListener { documentSnapshot ->
-                    val user = documentSnapshot.toObject(User::class.java)
-                    user?.let {
-                        // Set the profile image, username, and email in the SharedViewModel
-                        sharedViewModel.setProfileImageUrl(user.image ?: "")
-                        sharedViewModel.setUserName(user.name ?: "")
-                        sharedViewModel.setUserEmail(user.email ?: "")
+                    .addOnSuccessListener { documentSnapshot ->
+                        val user = documentSnapshot.toObject(User::class.java)
+                        user?.let {
+                            val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                            sharedPreferences.edit().apply {
+                                putString("profile_image_url", user.image)
+                                putString("user_name", user.name)
+                                putString("user_email", user.email)
+                                putString("user_username", user.username)
+                                putString("user_bio", user.bio)
+                                putString("user_gender", user.gender)
+                                putString("user_dob", user.dob)
+                                putString("user_city", user.city)
+                                apply()
+                            }
+                        }
+                    }.addOnFailureListener {
+                        // Handle error (log or show a message)
                     }
-                }.addOnFailureListener {
-                    // Handle error (log or show a message)
-                }
         }
     }
+
 }

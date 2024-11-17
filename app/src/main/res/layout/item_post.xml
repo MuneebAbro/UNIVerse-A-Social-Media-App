@@ -19,6 +19,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profileSection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+
+
+
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileImageUserQna"
                 android:layout_width="55dp"
@@ -28,8 +40,10 @@
                 android:src="@drawable/avatar"
                 app:civ_border_color="@color/gray_hint_light"
                 app:civ_border_width="1dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                 />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -60,6 +74,8 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <View
                 android:id="@+id/postInsideViewPost"
                 android:layout_width="match_parent"
@@ -68,7 +84,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileImageUserQna" />
+                app:layout_constraintTop_toBottomOf="@+id/profileSection" />
             <TextView
                 android:id="@+id/textQna"
                 style="@style/TextAppearance.Nexa.Light"

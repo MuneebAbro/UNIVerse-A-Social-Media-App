@@ -148,6 +148,10 @@ class SignUpActivity : AppCompatActivity() {
             putString("user_name", user.name)
             putString("user_email", user.email)
             putString("user_username", user.username)
+            putString("user_bio", user.bio)
+            putString("user_gender", user.gender)
+            putString("user_dob", user.dob)
+            putString("user_city", user.city)
             apply()
         }
     }

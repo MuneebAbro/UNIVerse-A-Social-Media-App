@@ -63,6 +63,10 @@ class SplashScreenActivity : AppCompatActivity() {
                     val name = document.getString("name") ?: "Unknown Name"
                     val email = document.getString("email") ?: "Unknown Email"
                     val imageUrl = document.getString("image") ?: ""
+                    val bio = document.getString("bio") ?: ""
+                    val gender = document.getString("gender") ?: ""
+                    val dob = document.getString("dob") ?: ""
+                    val city = document.getString("city") ?: ""
 
                     saveUserData(name, email, imageUrl) {
                         // Navigate to MainActivity after user data is saved
@@ -84,6 +88,10 @@ class SplashScreenActivity : AppCompatActivity() {
             .putString("user_name", name)
             .putString("user_email", email)
             .putString("profile_image_url", imageUrl)
+            .putString("user_bio", "")
+            .putString("user_gender", "")
+            .putString("user_dob", "")
+            .putString("user_city", "")
             .apply()
 
         // Call the completion callback
