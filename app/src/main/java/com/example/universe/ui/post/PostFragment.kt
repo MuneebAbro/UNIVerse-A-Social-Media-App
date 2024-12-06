@@ -132,11 +132,7 @@ class PostFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
 
                 val posts = querySnapshot.toObjects(Post::class.java)
                 val sortedPosts = posts.sortedByDescending { it.timestamp }
-                val adapter = PostCardAdapter(sortedPosts) { post ->
-                    val intent = Intent(context, CommentsActivity::class.java)
-                    intent.putExtra("post_data", post)
-                    startActivity(intent)
-                }
+                val adapter = PostCardAdapter(sortedPosts)
                 
                 recyclerView.adapter = adapter
 

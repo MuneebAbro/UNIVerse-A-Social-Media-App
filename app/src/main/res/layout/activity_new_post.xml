@@ -5,9 +5,9 @@
     android:id="@+id/mainNewPostAtivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/adaptive_white"
+    android:background="@color/bkg"
     android:paddingTop="?attr/actionBarSize"
-    tools:context=".ui.QnA.NewPostActivity">
+    tools:context=".ui.post.NewPostActivity">
 
 
     <TextView
@@ -67,6 +67,7 @@
         app:layout_constraintTop_toBottomOf="@id/captionNewPost"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
     <LinearLayout
         android:id="@+id/LLNewPostAddImage"
         android:layout_width="match_parent"
@@ -82,15 +83,15 @@
             android:id="@+id/select_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="8dp"
+
+            android:padding="16dp"
             android:src="@drawable/gallery"/>
-        <ImageView
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:src="@drawable/camera"/>
+            style="@style/TextAppearance.Nexa.Bold"
+            android:text="Add Image"/>
 
     </LinearLayout>
     <View

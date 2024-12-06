@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.universe.databinding.ActivityNewPostBinding
@@ -41,7 +42,7 @@ class NewPostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNewPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+enableEdgeToEdge()
         // Load user profile from SharedPreferences and FirebaseAuth
         loadUserProfileFromPrefs()
 

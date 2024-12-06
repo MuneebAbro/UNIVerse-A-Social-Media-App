@@ -18,7 +18,6 @@ import com.example.universe.databinding.FragmentProfileBinding
 import com.example.universe.model.Post
 import com.example.universe.model.SharedViewModel
 import com.example.universe.ui.login.SignUpActivity
-import com.example.universe.ui.post.CommentsActivity
 import com.example.universe.utils.POSTS_NODE
 import com.example.universe.utils.USER_NODE
 import com.google.firebase.auth.FirebaseAuth
@@ -41,9 +40,7 @@ class ProfileFragment : Fragment() {
         val root: View = binding.root
 
         // Set up RecyclerView
-        postAdapter = PostCardAdapter(emptyList()){
-
-        }
+        postAdapter = PostCardAdapter(emptyList())
         binding.profileRV.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = postAdapter
@@ -170,11 +167,7 @@ class ProfileFragment : Fragment() {
 
                         if (posts.isNotEmpty()) {
                             val sortedPosts = posts.sortedByDescending { it.timestamp }
-                            val adapter = PostCardAdapter(sortedPosts) { post ->
-                                val intent = Intent(requireContext(), CommentsActivity::class.java)
-                                intent.putExtra("post_data", post)
-                                startActivity(intent)
-                            }
+                            val adapter = PostCardAdapter(sortedPosts)
                             binding.profileRV.adapter = adapter
                         } else {
                             Toast.makeText(requireContext(), "No posts available", Toast.LENGTH_SHORT).show()

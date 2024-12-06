@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso
 
 class PostCardAdapter(
         private var posts: List<Post>,
-        private val onClick: (Post) -> Unit
 ) : RecyclerView.Adapter<PostCardAdapter.PostViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -69,9 +68,6 @@ class PostCardAdapter(
         holder.timeStamp.text = TimeAgo.using(post.timestamp)
 
         // Set click listener for each post
-        holder.itemView.setOnClickListener {
-            onClick(post)
-        }
     }
 
     override fun getItemCount(): Int = posts.size

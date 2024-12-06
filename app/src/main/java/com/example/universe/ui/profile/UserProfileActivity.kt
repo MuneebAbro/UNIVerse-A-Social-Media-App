@@ -14,7 +14,6 @@ import com.example.universe.R
 import com.example.universe.adapter.PostCardAdapter
 import com.example.universe.databinding.ActivityUserProfileBinding
 import com.example.universe.model.Post
-import com.example.universe.ui.post.CommentsActivity
 import com.example.universe.utils.POSTS_NODE
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
@@ -72,11 +71,7 @@ class UserProfileActivity : AppCompatActivity() {
 
                         if (posts.isNotEmpty()) {
                             val sortedPosts = posts.sortedByDescending { it.timestamp }
-                            val adapter = PostCardAdapter(sortedPosts) { post ->
-                                val intent = Intent(this@UserProfileActivity, CommentsActivity::class.java)
-                                intent.putExtra("post_data", post)
-                                startActivity(intent)
-                            }
+                            val adapter = PostCardAdapter(sortedPosts)
                             binding.UserProfileRV.adapter = adapter
                         } else {
                             Toast.makeText(this, "No posts available", Toast.LENGTH_SHORT).show()
